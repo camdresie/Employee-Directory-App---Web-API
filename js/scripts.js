@@ -18,19 +18,19 @@
  * HTML Markups - Gallery
  ==================================== */ 
 
- const galleryDiv = document.querySelector('#gallery');
- galleryDiv.innerHTML = `
-    <div class="card">
-        <div class="card-img-container">
-            <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
-        </div>
-        <div class="card-info-container">
-            <h3 id="name" class="card-name cap">first last</h3>
-            <p class="card-text">email</p>
-            <p class="card-text cap">city, state</p>
-        </div>
-    </div>
- `;
+ 
+//  galleryDiv.innerHTML = `
+//     <div class="card">
+//         <div class="card-img-container">
+//             <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
+//         </div>
+//         <div class="card-info-container">
+//             <h3 id="name" class="card-name cap">first last</h3>
+//             <p class="card-text">email</p>
+//             <p class="card-text cap">city, state</p>
+//         </div>
+//     </div>
+//  `;
 
   /**  =================================
  * HTML Markups - Modal
@@ -65,7 +65,7 @@ const fetchData = () => {
         .then(data => data.json())
         .then(json => {
             const employeeList = json.results;
-            generateHTML(employeeList);
+            generateGalleryHTML(employeeList);
             
         })
       
@@ -101,12 +101,13 @@ const fetchData = () => {
  * Helper Functions
  ==================================== */ 
 
- const generateHTML = (employees) => {
+const generateGalleryHTML = (employees) => {
+    const galleryDiv = document.querySelector('#gallery');
     for (let i = 0; i < employees.length; i++) {
         let html = `
         <div class="card">
             <div class="card-img-container">
-                <img class="card-img" src="${employees[i].picture.thumbnail}" alt="profile picture">
+                <img class="card-img" src="${employees[i].picture.large}" alt="profile picture">
             </div>
             <div class="card-info-container">
                 <h3 id="name" class="card-name cap">${employees[i].name.first} ${employees[i].name.last}</h3>
@@ -115,9 +116,11 @@ const fetchData = () => {
             </div>
         </div>
         `;
-        galleryDiv.appendChild(html);
+        galleryDiv.innerHTML += html;
     }
- }
+}
+
+
    
 
  fetchData();
