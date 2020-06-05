@@ -15,24 +15,6 @@
  `;
 
   /**  =================================
- * HTML Markups - Gallery
- ==================================== */ 
-
- 
-//  galleryDiv.innerHTML = `
-//     <div class="card">
-//         <div class="card-img-container">
-//             <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
-//         </div>
-//         <div class="card-info-container">
-//             <h3 id="name" class="card-name cap">first last</h3>
-//             <p class="card-text">email</p>
-//             <p class="card-text cap">city, state</p>
-//         </div>
-//     </div>
-//  `;
-
-  /**  =================================
  * HTML Markups - Modal
  ==================================== */ 
 
@@ -65,6 +47,7 @@ const fetchData = () => {
         .then(data => data.json())
         .then(json => {
             const employeeList = json.results;
+            console.log(employeeList);
             generateGalleryHTML(employeeList);
             
         })
@@ -101,8 +84,10 @@ const fetchData = () => {
  * Helper Functions
  ==================================== */ 
 
+const galleryDiv = document.querySelector('#gallery');
+
+
 const generateGalleryHTML = (employees) => {
-    const galleryDiv = document.querySelector('#gallery');
     for (let i = 0; i < employees.length; i++) {
         let html = `
         <div class="card">
@@ -120,7 +105,32 @@ const generateGalleryHTML = (employees) => {
     }
 }
 
+const generateContactCard = (employees) => {
+        
+    let html = `
+        <div class="modal-container">
+            <div class="modal">
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                <div class="modal-info-container">
+                    <img class="modal-img" src="${employees[i].picture.large}" alt="profile picture">
+                    <h3 id="name" class="modal-name cap">${employees[i].name.first} ${employees[i].name.last}</h3>
+                    <p class="modal-text">${employees[i].email}</p>
+                    <p class="modal-text cap">${employees.location.city}</p>
+                    <hr>
+                    <p class="modal-text">${employees.cell}</p>
+                    <p class="modal-text">${employees.location.street.number} ${employees.location.street.name}, ${employees.location.city}, ${employees.location.state} ${employees.location.postcode}</p>
+                    <p class="modal-text">Birthday: ${employees.dob}</p>
+                </div>
+            </div>
+        </div>
+        `;
+        $(html).insertAfter(galleryDiv);
+       }
 
+
+// $(modalHTML).insertAfter(galleryDiv);
+//     }
+// })
    
 
  fetchData();
