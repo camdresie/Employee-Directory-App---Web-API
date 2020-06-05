@@ -65,8 +65,10 @@ const fetchData = () => {
         .then(data => data.json())
         .then(json => {
             const employeeList = json.results;
-            console.log(employeeList)
-        });
+            generateHTML(employeeList);
+            
+        })
+      
         
 
         }
@@ -99,11 +101,24 @@ const fetchData = () => {
  * Helper Functions
  ==================================== */ 
 
- const captureEmployees = (employees) => {
-     for (let i = 0; i < employees.length; i++) {
-        employeeInfo.push(arr[i]);
-     }
+ const generateHTML = (employees) => {
+    for (let i = 0; i < employees.length; i++) {
+        let html = `
+        <div class="card">
+            <div class="card-img-container">
+                <img class="card-img" src="${employees[i].picture.thumbnail}" alt="profile picture">
+            </div>
+            <div class="card-info-container">
+                <h3 id="name" class="card-name cap">${employees[i].name.first} ${employees[i].name.last}</h3>
+                <p class="card-text">${employees[i].email}</p>
+                <p class="card-text cap">${employees[i].location.city}, ${employees[i].location.state}</p>
+            </div>
+        </div>
+        `;
+        galleryDiv.appendChild(html);
+    }
  }
+   
 
  fetchData();
 // const generateContact = () => {
