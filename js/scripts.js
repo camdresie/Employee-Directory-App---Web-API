@@ -49,35 +49,8 @@ const fetchData = () => {
             const employeeList = json.results;
             console.log(employeeList);
             generateGalleryHTML(employeeList);
-            
         })
-      
-        
-
-        }
-        // .then(function (json) {
-        //     results = json.results
-        //     return results;
-        // })
-
-//  fetchName
-
-//  fetchEmail
-
-//  fetchCity
-
-/**  =================================
- * Calls to API to get employees
- ==================================== */ 
- 
-// const firstName
-// const lastName 
-// const email
-// const city
-// const image
-// const cell
-// const address
-// const birthday 
+    }
 
 
 /**  =================================
@@ -126,11 +99,6 @@ const generateContactCard = (employees) => {
         `;
         $(html).insertAfter(galleryDiv);
        }
-
-
-// $(modalHTML).insertAfter(galleryDiv);
-//     }
-// })
    
 
  fetchData();
