@@ -49,6 +49,19 @@ const fetchData = () => {
             const employeeList = json.results;
             console.log(employeeList);
             generateGalleryHTML(employeeList);
+            const cards = galleryDiv.querySelectorAll('.card');
+            cards.forEach((card) => {
+                card.addEventListener('click', (event) => {
+                    const employeeName = event.target.parentElement.querySelector('#name').innerHTML;
+                    for (let i = 0; i < employeeList.length; i++) {
+                        console.log(employeeName);
+                        if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
+                            generateContactCard(employeeList[i]);  
+                        }
+                    }
+                });
+            })
+            
         })
     }
 
@@ -79,20 +92,19 @@ const generateGalleryHTML = (employees) => {
 }
 
 const generateContactCard = (employees) => {
-        
     let html = `
         <div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                 <div class="modal-info-container">
-                    <img class="modal-img" src="${employees[i].picture.large}" alt="profile picture">
-                    <h3 id="name" class="modal-name cap">${employees[i].name.first} ${employees[i].name.last}</h3>
-                    <p class="modal-text">${employees[i].email}</p>
+                    <img class="modal-img" src="${employees.picture.large}" alt="profile picture">
+                    <h3 id="name" class="modal-name cap">${employees.name.first} ${employees.name.last}</h3>
+                    <p class="modal-text">${employees.email}</p>
                     <p class="modal-text cap">${employees.location.city}</p>
                     <hr>
                     <p class="modal-text">${employees.cell}</p>
                     <p class="modal-text">${employees.location.street.number} ${employees.location.street.name}, ${employees.location.city}, ${employees.location.state} ${employees.location.postcode}</p>
-                    <p class="modal-text">Birthday: ${employees.dob}</p>
+                    <p class="modal-text">Birthday: ${employees.dob.date}</p>
                 </div>
             </div>
         </div>
