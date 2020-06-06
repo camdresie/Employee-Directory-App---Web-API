@@ -23,7 +23,6 @@ const fetchData = () => {
         .then(data => data.json())
         .then(json => {
             const employeeList = json.results;
-            console.log(employeeList);
             generateGalleryHTML(employeeList);
             const cards = galleryDiv.querySelectorAll('.card');
             cards.forEach((card) => {
