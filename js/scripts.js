@@ -149,7 +149,7 @@ const generateContactCard = (employee) => {
 }
 
 /**  =================================
- * The call to the fetchData() function to render the HTML. 
+ * The call to the fetchData() function to generate the API request and begin rendering the HTML. 
  ==================================== */ 
 
  fetchData();
