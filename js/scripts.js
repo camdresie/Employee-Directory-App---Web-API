@@ -28,8 +28,16 @@ const fetchData = () => {
             const cards = galleryDiv.querySelectorAll('.card');
             cards.forEach((card) => {
                 card.addEventListener('click', (event) => {
-                    if (event.target.className === 'card-info-container' || event.target.className === 'card-name' || event.target.className === 'card-text') {
+                    if (event.target.className === 'card-info-container' || event.target.className === 'card-text') {
                         const employeeName = event.target.parentNode.querySelector('#name').innerHTML;
+                        for (let i = 0; i < employeeList.length; i++) {
+                            console.log(employeeName);
+                            if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
+                                generateContactCard(employeeList[i]); 
+                            } 
+                        }
+                    } else if (event.target.id === 'name') {
+                        const employeeName = event.target.innerHTML;
                         for (let i = 0; i < employeeList.length; i++) {
                             console.log(employeeName);
                             if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
@@ -53,12 +61,15 @@ const fetchData = () => {
                             }
                         }
                     }
-                    const body = document.querySelector('body');
                     const contactContainer = document.querySelector('.modal-container');
-                    const closeButton = document.querySelector('#modal-close-btn');
-                        closeButton.addEventListener('click', (e) => {
-                            body.removeChild(contactContainer);
-                        })
+                    if (contactContainer) {
+                        const body = document.querySelector('body');
+                        // const contactContainer = document.querySelector('.modal-container');
+                        const closeButton = document.querySelector('#modal-close-btn');
+                            closeButton.addEventListener('click', (e) => {
+                                body.removeChild(contactContainer);
+                            });
+                    }
                 });
             })
         })
@@ -91,6 +102,11 @@ const generateGalleryHTML = (employees) => {
 }
 
 const generateContactCard = (employees) => {
+    let dob = employees.dob.date.substring(0, 10);
+    let month = dob.substring(5, 7);
+    let day = dob.substring(8, 10)
+    let year = dob.substring(0, 4);
+    let bday = `${month}/${day}/${year}`;
     let html = `
         <div class="modal-container">
             <div class="modal">
@@ -103,7 +119,7 @@ const generateContactCard = (employees) => {
                     <hr>
                     <p class="modal-text">${employees.cell}</p>
                     <p class="modal-text">${employees.location.street.number} ${employees.location.street.name}, ${employees.location.city}, ${employees.location.state} ${employees.location.postcode}</p>
-                    <p class="modal-text">Birthday: ${employees.dob.date}</p>
+                    <p class="modal-text">Birthday: ${bday}</p>
                 </div>
             </div>
         </div>
