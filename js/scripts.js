@@ -28,11 +28,29 @@ const fetchData = () => {
             const cards = galleryDiv.querySelectorAll('.card');
             cards.forEach((card) => {
                 card.addEventListener('click', (event) => {
-                    const employeeName = event.target.parentElement.querySelector('#name').innerHTML;
-                    for (let i = 0; i < employeeList.length; i++) {
-                        console.log(employeeName);
-                        if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
-                            generateContactCard(employeeList[i]);  
+                    if (event.target.className === 'card-info-container' || event.target.className === 'card-name' || event.target.className === 'card-text') {
+                        const employeeName = event.target.parentNode.querySelector('#name').innerHTML;
+                        for (let i = 0; i < employeeList.length; i++) {
+                            console.log(employeeName);
+                            if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
+                                generateContactCard(employeeList[i]); 
+                            } 
+                        }
+                    } else if (event.target.className === 'card-image-container' || event.target.className === 'card-img') {
+                        const employeeName = event.target.parentNode.nextElementSibling.querySelector('#name').innerHTML;
+                        for (let i = 0; i < employeeList.length; i++) {
+                            console.log(employeeName);
+                            if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
+                                generateContactCard(employeeList[i]);
+                            }
+                        }
+                    } else if (event.target.className === 'card') {
+                        const employeeName = event.target.querySelector('#name').innerHTML;
+                        for (let i = 0; i < employeeList.length; i++) {
+                            console.log(employeeName);
+                            if (employeeName === `${employeeList[i].name.first} ${employeeList[i].name.last}`) {
+                                generateContactCard(employeeList[i]);
+                            }
                         }
                     }
                     const body = document.querySelector('body');
